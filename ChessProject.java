@@ -141,6 +141,20 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
   		return oponent;
   	}
 
+    private Boolean checkBlackOponent(int newX, int newY){
+      Boolean oponent;
+      Component c1 = chessBoard.findComponentAt(newX, newY);
+      JLabel awaitingPiece = (JLabel)c1;
+      String tmp1 = awaitingPiece.getIcon().toString();
+      if(((tmp1.contains("White")))){
+        oponent = true;
+      }
+      else{
+        oponent = false;
+      }
+      return oponent;
+    }
+
 	/*
 		This method is called when we press the Mouse. So we need to find out what piece we have
 		selected. We may also not have selected a piece!
@@ -183,6 +197,21 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		    String pieceName = tmp.substring(0, (tmp.length()-4));
 		    Boolean validMove = false;
 
+        int landingX = (e.getX()/75);
+        int landingY = (e.getY()/75);
+        int xMovement = Math.abs((e.getX()/75)-startX);
+        int yMovement = Math.abs((e.getY()/75)-startY);
+        System.out.println("=============================================");
+        System.out.println("The piece that is being moved is : "+pieceName);
+        System.out.println("The starting coordinates are : "+"( "+startX+","+startY+")");
+        System.out.println("The xMovement is : "+xMovement);
+        System.out.println("The yMovement is : "+yMovement);
+        System.out.println("The landing coordinates are : "+"("+landingX+","+landingY+")");
+        System.out.println("=============================================");
+
+
+
+
 		/*
 			The only piece that has been enabled to move is a White Pawn...but we should really have this is a separate
 			method somewhere...how would this work.
@@ -195,14 +224,42 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 			demonstration purposes the Pawn here turns into a Queen.
 		*/
         if(pieceName.equals("BlackPawn")){
-          validMove = true;
+          /* The pawn can move either two or one squares */
+          if(startY == 6){
+            /*
+              the pawn is making its first move....
+              the pawn can move one or two squares... in the y direction
+              as long as we are moving up the board and also there is no movement in the x direction
+              startY > landingY in english is just the piece moving up the board
+            */
+            if(((yMovement==1)||(yMovement == 2))&&(startY > landingY)&&(xMovement == 0)){
+              validMove = true;
+            }
+            else if((yMovement == 1)&&(startY > landingY)&&(xMovement == 1)){
+              if(piecePresent(e.getX(), e.getY())){
+                if(checkBlackOponent(e.getX(), e.getY())){
+                  validMove = true;
+                }
+              }
+            }
+          }
+            else{
+              validMove = false;
+          }
         }
-    		if(pieceName.equals("WhitePawn")){
+    		else if(pieceName.equals("WhitePawn")){
+          //Starting position
     			if(startY == 1)
     			{
+            /*
+            if start x is equal to its end column, and the new y has moved one or two squares we may have a valid move.
+            Basically saying that if the first move was a valid move
+            */
     				if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
     				{
+              //To check if the first move was one or two spaces
     					if((((e.getY()/75)-startY)==2)){
+                //checks if there is a piece on the square player is moving to, if yes = true, if false = no
     						if((!piecePresent(e.getX(), (e.getY())))&&(!piecePresent(e.getX(), (e.getY()+75)))){
     							validMove = true;
     						}
@@ -210,6 +267,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     							validMove = false;
     						}
     					}
+              /*
+              This is where the code says if the move was not 2 spaces and was just one space, then the first move was made,
+              and the pawn can only move one square at a time thereafter.
+              */
     					else{
     						if((!piecePresent(e.getX(), (e.getY()))))
     						{
