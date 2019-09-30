@@ -192,6 +192,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 
         chessPiece.setVisible(false);
 		    Boolean success =false;
+        Boolean progression = false;
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
 		    String tmp = chessPiece.getIcon().toString();
 		    String pieceName = tmp.substring(0, (tmp.length()-4));
@@ -338,7 +339,22 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             else{//all other moves
               if(((yMovement==1))&&(startY > landingY)&&(xMovement == 0)){
                 if(!piecePresent(e.getX(), e.getY())){
-                validMove = true;
+                  validMove = true;
+                  if(landingY == 0){
+                    progression = true;
+                  }
+                  else{
+                    if(progression){
+                      int location = 0 + (e.getX()/75);
+                      if(c instanceof JLabel){
+                        Container parent = c.getParent();
+                        parent.remove(0);
+                        pieces = new JLabel( new ImageIcon("BlackQueen.png") );
+                        parent = (JPanel)chessBoard.getComponent(location);
+                        parent.add(pieces);
+                      }
+                    }
+                  }
                 }
                 else{
                   validMove = false;
@@ -354,6 +370,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                   }
                 }
               }
+
           }
         }
         //white pawn
@@ -392,17 +409,18 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     			else{
     				int newY = e.getY()/75;
     				int newX = e.getX()/75;
-    				if((startX-1 >=0)||(startX +1 <=7))
+            /*this line makes it possible for pawn to take pieces across the board
+    				if((startX-1 >=)||(startX +1 <=7))
+            */
+            if((yMovement == 1)&&(startY > landingY)&&(xMovement == 1))
     				{
     					if((piecePresent(e.getX(), (e.getY())))&&((((newX == (startX+1)&&(startX+1<=7)))||((newX == (startX-1))&&(startX-1 >=0)))))
     					{
     						if(checkWhiteOponent(e.getX(), e.getY())){
     							validMove = true;
-                  /* This code lets the white pawn take piece from starting position
     							if(startY == 6){
     								success = true;
     							}
-                  */
     						}
     						else{
     							validMove = false;
@@ -411,10 +429,9 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     					else{
     						if(!piecePresent(e.getX(), (e.getY()))){
     							if((startX == (e.getX()/75))&&((e.getY()/75)-startY)==1){
-                    /* This code lets the white pawn take piece from starting position
     								if(startY == 6){
     									success = true;
-    								}*/
+    								}
     								validMove = true;
     							}
     							else{

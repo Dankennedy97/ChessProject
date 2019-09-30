@@ -1,4 +1,4 @@
 pawn misreading location of black pieces in front of it - this can help with king piece
 Pawn can take a piece on the other side of the board - found the location in the pawn code,
-^*UPDATE* pawn cant take piece from starting position but can still take piece from other side of the board
+^*UPDATE* pawn cant take piece from starting position but can still take piece from other side of the board *FIXED*
 White has as many turns as it wants - fix this last
