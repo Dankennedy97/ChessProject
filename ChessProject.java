@@ -223,7 +223,81 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 			If a Pawn makes it to the top of the other side, the Pawn can turn into any other piece, for
 			demonstration purposes the Pawn here turns into a Queen.
 		*/
-        if(pieceName.equals("BlackPawn")){
+
+        if(pieceName.contains("King")){
+          /*
+            the king can move in any direction as long as its being placed back onto the board and its only
+            moving one square at a time....
+
+            if(the king is being placed back onto the board){
+
+            if(xMovement == 1)||(yMovement == 1).... and all other combinations of moving
+            only one square at a time... essentially just like a restricted Queen
+
+            we cant take our own piece and there must be one square between both kings after
+            completing the move...
+           }
+          */
+        }
+        else if(pieceName.equals("WhiteQueen")){
+          /*
+          if(the queen is being placed back onto the board){
+            if(the movement is like a bishop){
+
+            test for a valid move...
+              we have a valid bishop movement if the xMovement == yMovement
+              if there is something in the way
+              if there is a piece on the expected landing square, if so make sure that
+              its an enemy piece...
+
+            }
+            else if(the movement is like the rook){
+
+            test for a valid rook movement
+              if there is an xMovement there cant be a yMovement
+              if there is a yMovement there cant be an xMovement
+
+              if one of the above conditions are true we simply make sure that there is
+              nothing in the way and that we not take our own piece.
+
+            }
+          }
+
+          */
+          validMove = true;
+        }
+        else if(pieceName.equals("BlackQueen")){
+          validMove = true;
+        }
+        else if(pieceName.contains("Knight")){
+
+          /*
+            We know knight can move in L direction. It means that if xMovement == 1 then yMovement
+            must equal 2 and also the other way around
+
+            We need to check the square that we are movig to and make sure that if there is a piece piecePresent
+            that its not our own piece...
+          */
+          if(((xMovement == 1)&&(yMovement == 2))||((xMovement == 2)&&(yMovement == 1))){
+            if(!piecePresent(e.getX(), e.getY())){
+              validMove = true;
+            }
+            else{
+              if(pieceName.contains("White")){
+                if(checkWhiteOponent(e.getX(), e.getY())){
+                  validMove = true;
+                }
+              }
+              else{
+                if(checkBlackOponent(e.getX(), e.getY())){
+                  validMove = true;
+                }
+              }
+            }
+          }
+        }
+        //black pawn
+        else if(pieceName.equals("BlackPawn")){
           /* The pawn can move either two or one squares */
           if(startY == 6){//first move
             /*
@@ -237,10 +311,16 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 if((!piecePresent(e.getX(), e.getY()))&&(!piecePresent(e.getX(), (e.getY()+75)))){
                   validMove = true;
                 }
+                else{
+                  validMove = false;
+                }
               }
               else{
                 if(!piecePresent(e.getX(), e.getY())){
                 validMove = true;
+                }
+                else{
+                  validMove = false;
                 }
               }
             }
@@ -248,6 +328,9 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
               if(piecePresent(e.getX(), e.getY())){
                 if(checkBlackOponent(e.getX(), e.getY())){
                   validMove = true;
+                }
+                else{
+                  validMove = false;
                 }
               }
             }
@@ -257,58 +340,24 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 if(!piecePresent(e.getX(), e.getY())){
                 validMove = true;
                 }
+                else{
+                  validMove = false;
+                }
               }
               else if((yMovement == 1)&&(startY > landingY)&&(xMovement == 1)){
                 if(piecePresent(e.getX(), e.getY())){
                   if(checkBlackOponent(e.getX(), e.getY())){
                     validMove = true;
                   }
+                  else{
+                    validMove = false;
+                  }
                 }
               }
           }
         }
-        if(!validMove){
-    			int location=0;
-    			if(startY ==0){
-    				location = startX;
-    			}
-    			else{
-    				location  = (startY*8)+startX;
-    			}
-    			String pieceLocation = pieceName+".png";
-    			pieces = new JLabel( new ImageIcon(pieceLocation) );
-    			panels = (JPanel)chessBoard.getComponent(location);
-    		  panels.add(pieces);
-    		}
-        if(success){
-          int location = 56 + (e.getX()/75);
-          if(c instanceof JLabel){
-            Container parent = c.getParent();
-            parent.remove(0);
-            pieces = new JLabel( new ImageIcon("BlackQueen.png"));
-            parent = (JPanel)chessBoard.getComponent(location);
-            parent.add(pieces);
-          }
-          else{
-            Container parent = (Container)c;
-            pieces = new JLabel(new ImageIcon("BlackQueen.png"));
-            parent = (JPanel)chessBoard.getComponent(location);
-            parent.add(pieces);
-          }
-        }
-        else{
-          if (c instanceof JLabel){
-                  Container parent = c.getParent();
-                  parent.remove(0);
-                  parent.add( chessPiece );
-              }
-              else {
-                  Container parent = (Container)c;
-                  parent.add( chessPiece );
-              }
-            chessPiece.setVisible(true);
-        }
-    		if(pieceName.equals("WhitePawn")){
+        //white pawn
+    		else if(pieceName.equals("WhitePawn")){
           //Starting position
     			if(startY == 1)
     			{
@@ -324,6 +373,9 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     						if((!piecePresent(e.getX(), (e.getY())))&&(!piecePresent(e.getX(), (e.getY()+75)))){
     							validMove = true;
     						}
+                else{
+                  validMove = false;
+                }
     					}
               /*
               This is where the code says if the move was not 2 spaces and was just one space, then the first move was made,
@@ -346,9 +398,11 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     					{
     						if(checkWhiteOponent(e.getX(), e.getY())){
     							validMove = true;
+                  /* This code lets the white pawn take piece from starting position
     							if(startY == 6){
     								success = true;
     							}
+                  */
     						}
     						else{
     							validMove = false;
@@ -357,9 +411,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     					else{
     						if(!piecePresent(e.getX(), (e.getY()))){
     							if((startX == (e.getX()/75))&&((e.getY()/75)-startY)==1){
+                    /* This code lets the white pawn take piece from starting position
     								if(startY == 6){
     									success = true;
-    								}
+    								}*/
     								validMove = true;
     							}
     							else{

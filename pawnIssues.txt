@@ -1,5 +1,4 @@
-pawn misreading location of black pieces in front of it
-Pawn can jump black pieces in front of it - change the check method
-Pawn can take a piece on the other side of the board
-White has as many turns as it wants
-Clue - look at code for pawns first move to fix issue 3
+pawn misreading location of black pieces in front of it - this can help with king piece
+Pawn can take a piece on the other side of the board - found the location in the pawn code,
+^*UPDATE* pawn cant take piece from starting position but can still take piece from other side of the board
+White has as many turns as it wants - fix this last
