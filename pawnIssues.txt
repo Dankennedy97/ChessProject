@@ -2,3 +2,9 @@ pawn misreading location of black pieces in front of it - this can help with kin
 Pawn can take a piece on the other side of the board - found the location in the pawn code,
 ^*UPDATE* pawn cant take piece from starting position but can still take piece from other side of the board *FIXED*
 White has as many turns as it wants - fix this last
+White pawn can jump piece on its first move *FIXED*
+White pawn cannot take a piece if there is a friendly piece near
+If white pawn takes a piece on row 5 it gets promoted but it is under the original piece on row 7
+
+
+//+75 checks the square just before the movement
