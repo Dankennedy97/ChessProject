@@ -516,9 +516,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     							validMove = true;
     						}
                 else{
-                  validMove = false;
+                  inTheWay = true;
                 }
-    					}
+              }
+    				}
               /*
               This is where the code says if the move was not 2 spaces and was just one space, then the first move was made,
               and the pawn can only move one square at a time thereafter.
@@ -527,8 +528,11 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     						if((!piecePresent(e.getX(), (e.getY()))))
     						{
     							validMove = true;
-    						}
-    					}
+                }
+                else{
+                  inTheWay = true;
+                }
+              }
     				}
     			}
     			else{
@@ -537,7 +541,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             /*this line makes it possible for pawn to take pieces across the board
     				if((startX-1 >=)||(startX +1 <=7))
             */
-            if((startX-1 >=1)||(startX +1 <=7))
+            if((startX-1 >=0)||(startX +1 <=7))
     				{
     					if((piecePresent(e.getX(), (e.getY())))&&((((newX == (startX+1)&&(startX+1<=7)))||((newX == (startX-1))&&(startX-1 >=1)))))
     					{
@@ -554,7 +558,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     								validMove = true;
     							}
     							else{
-    								validMove = false;
+    								inTheWay = true;
     							}
     						}
     						else{
@@ -566,7 +570,6 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     					validMove = false;
     				}
     			}
-    		}
     		if(!validMove){
     			int location=0;
     			if(startY ==0){
@@ -575,7 +578,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     			else{
     				location  = (startY*8)+startX;
     			}
-    			String pieceLocation = pieceName+".png";
+    			String pieceLocation = pieceName +".png";
     			pieces = new JLabel( new ImageIcon(pieceLocation) );
     			panels = (JPanel)chessBoard.getComponent(location);
     		  panels.add(pieces);
@@ -609,8 +612,8 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     	        	}
     	    		chessPiece.setVisible(true);
     			}
-    		}
         }
+      }
 
         public void mouseClicked(MouseEvent e) {
 
