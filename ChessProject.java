@@ -499,20 +499,20 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           //white pawn
           else if(pieceName.equals("WhitePawn")){
             //Starting position
-            if(startX == 1)
+            if(((yMovement==1)||(yMovement == 2))&&(startY < landingY)&&(xMovement == 0))
             {
             /*
             if start x is equal to its end column, and the new y has moved one or two squares we may have a valid move.
             Basically saying that if the first move was a valid move...
     				if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
             */
-            if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
+            if((startY == (e.getX()/75))&&((((e.getY()/75)-startX)==1)||((e.getY()/75)-startX)==2))
     				{
               //To check if the first move was one or two spaces
               //changing the / to -  allows the white pawn to move two spaces when there is a piece in front of it
-    					if((((e.getY()-75)-startX)==2)){
+    					if((((e.getY()-75)-startY)==2)){
                 //checks if there is a piece on the square player is moving to, if yes = true, if false = no
-    						if((!piecePresent(e.getX(), (e.getY())))&&(!piecePresent(e.getX(), (e.getY()-75)))){
+    						if((!piecePresent(e.getX(), (e.getY())))&&(!piecePresent(e.getX(), (e.getY()-75)))&&(!piecePresent(e.getX(), (e.getY()+75)))){
     							validMove = true;
     						}
                 else{
