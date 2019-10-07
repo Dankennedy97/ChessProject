@@ -496,21 +496,21 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 }
               }
           }
-        //white pawn
-    		else if(pieceName.equals("WhitePawn")){
-          //Starting position
-    			if(startY == 1)
-    			{
+          //white pawn
+          else if(pieceName.equals("WhitePawn")){
+            //Starting position
+            if(startX == 1)
+            {
             /*
             if start x is equal to its end column, and the new y has moved one or two squares we may have a valid move.
             Basically saying that if the first move was a valid move...
     				if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
             */
-              if(((yMovement==1)||(yMovement == 2))&&(startY < landingY)&&(xMovement == 0))
+            if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
     				{
               //To check if the first move was one or two spaces
               //changing the / to -  allows the white pawn to move two spaces when there is a piece in front of it
-    					if((((e.getY()-75)-startY)==2)){
+    					if((((e.getY()-75)-startX)==2)){
                 //checks if there is a piece on the square player is moving to, if yes = true, if false = no
     						if((!piecePresent(e.getX(), (e.getY())))&&(!piecePresent(e.getX(), (e.getY()-75)))){
     							validMove = true;
@@ -533,8 +533,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                   inTheWay = true;
                 }
               }
-    				}
-    			}
+            }
     			else{
             int newY = e.getY() / 75;
     				int newX = e.getX() / 75;
@@ -543,7 +542,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             */
             if((startX-1 >=0)||(startX +1 <=7))
     				{
-    					if((piecePresent(e.getX(), (e.getY())))&&((((newX == (startX+1)&&(startX+1<=7)))||((newX == (startX-1))&&(startX-1 >=1)))))
+    					if((piecePresent(e.getX(), (e.getY())))&&((((newX == (startX+1)&&(startX+1<=7)))||((newX == (startX-1))&&(startX-1 >=0)))))
     					{
     						if(checkWhiteOponent(e.getX(), e.getY())){
     							validMove = true;
@@ -558,18 +557,19 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     								validMove = true;
     							}
     							else{
-    								inTheWay = true;
+    								validMove = false;
     							}
     						}
     						else{
-    							validMove = false;
+    							inTheWay = false;
     						}
     					}
     				}
     				else{
     					validMove = false;
     				}
-    			}
+          }
+        }
     		if(!validMove){
     			int location=0;
     			if(startY ==0){
