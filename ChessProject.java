@@ -459,6 +459,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             */
             if(((yMovement==1)||(yMovement == 2))&&(startY > landingY)&&(xMovement == 0)){
               if(yMovement == 2){
+                /*
+                Saying here that if piece is not present on the square we are moving to, then the move
+                is valid
+                */
                 if((!piecePresent(e.getX(), e.getY()))&&(!piecePresent(e.getX(), (e.getY()+75)))){
                   validMove = true;
                 }
@@ -475,6 +479,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 }
               }
             }
+            //To check if there is a black piece in range of the white pawns first move
             else if((yMovement == 1)&&(startY > landingY)&&(xMovement == 1)){
               if(piecePresent(e.getX(), e.getY())){
                 if(checkBlackOponent(e.getX(), e.getY())){
@@ -487,6 +492,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             }
           }
             else{//all other moves
+              //pawn piece can only move one space after its first move is made
               if(((yMovement==1))&&(startY > landingY)&&(xMovement == 0)){
                 if(!piecePresent(e.getX(), e.getY())){
                   validMove = true;
