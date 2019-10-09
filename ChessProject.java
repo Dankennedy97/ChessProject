@@ -197,6 +197,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         chessPiece.setVisible(false);
         Boolean success =false;
         Boolean inTheWay =false;
+        Boolean progression = false;
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
 		    String tmp = chessPiece.getIcon().toString();
 		    String pieceName = tmp.substring(0, (tmp.length()-4));
@@ -313,6 +314,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         }
         else if(pieceName.contains("Rook")){
           if(((landingX < 0) || (landingX > 7)) ||((landingY < 0)||(landingY > 7))){
+            
             validMove = false;
           }
           else{
@@ -430,6 +432,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             that its not our own piece...
           */
           if(((xMovement == 1)&&(yMovement == 2))||((xMovement == 2)&&(yMovement == 1))){
+            //if not piece present then the piece can move
             if(!piecePresent(e.getX(), e.getY())){
               validMove = true;
             }
