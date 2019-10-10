@@ -499,6 +499,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
               if(((yMovement==1))&&(startY > landingY)&&(xMovement == 0)){
                 if(!piecePresent(e.getX(), e.getY())){
                   validMove = true;
+                  //this means that if the piece makes it to the opposite end of the board, it turns into a queen
+                  if(landingY == 0){
+                    progression = true;
+                  }
                   }
                 }
                 else{
@@ -509,6 +513,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 if(piecePresent(e.getX(), e.getY())){
                   if(checkBlackOponent(e.getX(), e.getY())){
                     validMove = true;
+                    //this means that if the piece makes it to the opposite end of the board, it turns into a queen
+                    if(landingY == 0){
+                      progression = true;
+                    }
                   }
                   else{
                     validMove = false;
@@ -538,7 +546,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     					else{
     						if(!piecePresent(e.getX(), e.getY()))
     						{
-    							validMove = true;
+                  validMove = true;
                 }
                 else{
                     validMove = false;
@@ -578,7 +586,11 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     			if(((yMovement==1))&&(startY < landingY)&&(xMovement == 0)){
            //if((startX == (e.getX()/75))&&((e.getY()/75)-startY)==1)
            if(!piecePresent(e.getX(), (e.getY()))){
-  					validMove = true;
+            validMove = true;
+            //this means that if the piece makes it to the opposite end of the board, it turns into a queen
+            if(landingY == 7){
+              success = true;
+            }
 					}
     			else{
     				validMove = false;
@@ -591,6 +603,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           if(piecePresent(e.getX(), e.getY())){
             if(checkWhiteOponent(e.getX(), e.getY())){
               validMove = true;
+              //this means that if the piece makes it to the opposite end of the board, it turns into a queen
+              if(landingY == 7){
+                success = true;
+              }
             }
           }
           else{
@@ -598,6 +614,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           }
         }
       }
+      //Code for pawn promotion
     	if(!validMove){
     		int location=0;
     		if(startY ==0){
@@ -612,23 +629,39 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     	  panels.add(pieces);
     	}
     	else{
-    		if(success){
-    			int location = 56 + (e.getX()/75);
+    		if(progression){
+    			int location = 0 + (e.getX()/75);
     			if (c instanceof JLabel){
            	Container parent = c.getParent();
             parent.remove(0);
-    				pieces = new JLabel( new ImageIcon("WhiteQueen.png") );
+    				pieces = new JLabel( new ImageIcon("BlackQueen.png") );
     				parent = (JPanel)chessBoard.getComponent(location);
     		    parent.add(pieces);
     			}
     			else{
     				Container parent = (Container)c;
-    	      pieces = new JLabel( new ImageIcon("WhiteQueen.png") );
+    	      pieces = new JLabel( new ImageIcon("BlackQueen.png") );
     				parent = (JPanel)chessBoard.getComponent(location);
     		    parent.add(pieces);
     				}
-    			}
-    			else{
+          }
+          else if(success){
+            int location = 56 + (e.getX()/75);
+            if (c instanceof JLabel){
+               Container parent = c.getParent();
+              parent.remove(0);
+              pieces = new JLabel( new ImageIcon("WhiteQueen.png") );
+              parent = (JPanel)chessBoard.getComponent(location);
+              parent.add(pieces);
+          }
+          else{
+            Container parent = (Container)c;
+    	      pieces = new JLabel( new ImageIcon("WhiteQueen.png") );
+    				parent = (JPanel)chessBoard.getComponent(location);
+    		    parent.add(pieces);
+          }
+        }
+          else{
     				if (c instanceof JLabel){
     	      	Container parent = c.getParent();
     	       	parent.remove(0);
