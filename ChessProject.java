@@ -319,14 +319,12 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             validMove = false;
           }
           else{
-            if(((Math.abs(startX-landingX)!=0)&&(Math.abs(startY-landingY) == 0))||((Math.abs(startX-landingX)==0)&&(Math.abs(landingY-startY)!=0))){
-              //possible move
-  
-              //movement along the x axis
+            if(((Math.abs(startX-landingX)!=0)&&(Math.abs(startY-landingY)==0))|| ((Math.abs(startX-landingX)==0)&&(Math.abs(landingY-startY)!=0)))
+            {
               if(Math.abs(startX-landingX)!=0){
-                xMovement = Math.abs(startX-landingX);
+                int xMovementR = Math.abs(startX-landingX);
                 if(startX-landingX > 0){
-                  for(int i=0; i < xMovement; i++){
+                  for(int i=0; i < xMovementR; i++){
                     if(piecePresent(initialX-(i*75), e.getY())){
                       inTheWay = true;
                       break;
@@ -337,8 +335,8 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                   }
                 }
                 else{
-                  for(int i=0; i < yMovement; i++){
-                    if(piecePresent(initialY+(i*75), e.getX())){
+                  for(int i=0; i < xMovementR; i++){
+                    if(piecePresent(initialX+(i*75), e.getY())){
                       inTheWay = true;
                       break;
                     }
@@ -349,51 +347,61 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 }
               }
               else{
-                yMovement = Math.abs(startY-landingY);
+                int yMovementR = Math.abs(startY-landingY);
                 if(startY-landingY > 0){
-                  for(int i=0; i < yMovement; i++){
-                    if(piecePresent(e.getX(), initialY-(i*75))){
+                  for(int i=0;i < yMovementR; i++){
+                    if(piecePresent(e.getX(),initialY-(i*75))){
                       inTheWay = true;
                       break;
+                    }
+                    else{
+                      inTheWay = false;
                     }
                   }
                 }
                 else{
-                  inTheWay = false;
+                  for(int i=0;i > yMovementR; i++){
+                    if(piecePresent(e.getX(),initialY+(i*75))){
+                      inTheWay = true;
+                      break;
+                    }
+                    else{
+                      inTheWay = false;
+                    }
+                  }
                 }
               }
-            if(inTheWay){
-              validMove = false;
-            }
-            else{
-              if(piecePresent(e.getX(), e.getY())){
-                if(pieceName.contains("White")){
-                  if(checkWhiteOponent(e.getX(), e.getY())){
-                    if(inTheWay){
+
+              if(inTheWay){
+                validMove = false;
+              }
+              else{
+                if(piecePresent(e.getX(), (e.getY()))){
+                  if(pieceName.contains("White")){
+                    if(checkWhiteOponent(e.getX(), e.getY())){
+                      validMove = true;
+                    }
+                    else{
                       validMove = false;
                     }
                   }
                   else{
-                    validMove = true;
+                    if(checkBlackOponent(e.getX(), e.getY())){
+                      validMove = true;
+                    }
+                    else{
+                      validMove = false;
+                    }
                   }
                 }
                 else{
-                  if(checkBlackOponent(e.getX(), e.getY())){
-                    validMove = true;
-                  }
-                  else{
-                    validMove = false;
-                  }
+                  validMove = true;
                 }
               }
-              else{
-                validMove = true;
-              }
             }
-           }
-           /*else{
-             validMove = true;
-           }*/
+            else{
+              validMove = false;
+            }
           }
         }
         else if(pieceName.contains("Queen")){
