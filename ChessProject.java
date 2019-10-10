@@ -21,7 +21,6 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 	  int startY;
     int initialX;
     int initialY;
-    int distance;
     JPanel panels;
     JLabel pieces;
 
@@ -245,65 +244,67 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           */
         }
         else if(pieceName.contains("Bishop")){
-          Boolean inTheWay =false;
-          //checking along the diagonal for a bishop to see if a piece is in the way
-          if (Math.abs(startX - landingX) == Math.abs(startY - landingY)) {
-            for(int i=0; i < distance; i++){
-              if(piecePresent((initialX+(i*75)), (initialY+(i*75)))){
-                inTheWay = true;
-              }
-              else{
-                validMove = true;
-              }
-            }
-          }
-          else if((startX-landingX < 0)&&(startY - landingY > 0)){
-            for(int i=0; i < distance; i++){
-              if(piecePresent((initialX+(i*75)), (initialY+(i*75)))){
-                inTheWay = true;
-              }
-              else{
-                validMove = true;
-              }
-            }
-          }
-          else if((startX-landingX > 0)&&(startY - landingY > 0)){
-            for(int i=0; i < distance; i++){
-              if(piecePresent((initialX+(i*75)), (initialY+(i*75)))){
-                inTheWay = true;
-              }
-              else{
-                validMove = true;
-              }
-            }
-          }
-          else if((startX-landingX > 0)&&(startY - landingY < 0)){
-            for(int i=0; i < distance; i++){
-              if(piecePresent((initialX+(i*75)), (initialY+(i*75)))){
-                inTheWay = true;
-              }
-            }
-          }
-          if(inTheWay){
+          Boolean inTheWay = false;
+          int distance = Math.abs(startX-landingX);
+          if(((landingX < 0) || (landingX > 7)) ||((landingY < 0)||(landingY > 7))){
             validMove = false;
           }
-          //check to see if bishop can take opponent
           else{
-            if(piecePresent(e.getX(), (e.getY()))){
-              if(pieceName.contains("White")){
-                if(checkWhiteOponent(e.getX(), e.getY())){
-                  validMove = true;
-                }
-                else{
-                  validMove = false;
+            validMove = true;
+            if(Math.abs(startX-landingX)==Math.abs(startY-landingY)){
+              if((startX-landingX < 0)&&(startY-landingY < 0)){
+                for(int i=0; i < distance; i++){
+                  if(piecePresent((initialX+(i*75)), (initialY+(i*75)))){
+                    inTheWay = true;
+                  }
                 }
               }
+              else if((startX-landingX < 0)&&(startY-landingY > 0)){
+                for(int i=0; i < distance; i++){
+                  if(piecePresent((initialX+(i*75)), (initialY-(i*75)))){
+                    inTheWay = true;
+                  }
+                }
+              }
+              else if((startX-landingX > 0)&&(startY-landingY > 0)){
+                for(int i=0; i < distance; i++){
+                  if(piecePresent((initialX-(i*75)), (initialY-(i*75)))){
+                    inTheWay = true;
+                  }
+                }
+              }
+              else if((startX-landingX > 0)&&(startY-landingY < 0)){
+                for(int i=0; i < distance; i++){
+                  if(piecePresent((initialX-(i*75)), (initialY+(i*75)))){
+                    inTheWay = true;
+                  }
+                }
+              }
+
+              if(inTheWay){
+                validMove = false;
+              }
               else{
-                if(checkBlackOponent(e.getX(), e.getY())){
-                  validMove = true;
+                if(piecePresent(e.getX(), (e.getY()))){
+                  if(pieceName.contains("White")){
+                    if(checkWhiteOponent(e.getX(), e.getY())){
+                      validMove = true;
+                    }
+                    else{
+                      validMove = false;
+                    }
+                  }
+                  else{
+                    if(checkBlackOponent(e.getX(), e.getY())){
+                      validMove = true;
+                    }
+                    else{
+                      validMove = false;
+                    }
+                  }
                 }
                 else{
-                  validMove = false;
+                  validMove = true;
                 }
               }
             }
@@ -313,9 +314,8 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           }
         }
         else if(pieceName.contains("Rook")){
-          Boolean inTheWay =false;
+          Boolean inTheWay = false;
           if(((landingX < 0) || (landingX > 7)) ||((landingY < 0)||(landingY > 7))){
-            
             validMove = false;
           }
           else{
