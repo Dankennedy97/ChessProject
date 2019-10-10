@@ -196,7 +196,6 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 
         chessPiece.setVisible(false);
         Boolean success =false;
-        Boolean inTheWay =false;
         Boolean progression = false;
         Component c =  chessBoard.findComponentAt(e.getX(), e.getY());
 		    String tmp = chessPiece.getIcon().toString();
@@ -246,6 +245,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           */
         }
         else if(pieceName.contains("Bishop")){
+          Boolean inTheWay =false;
           //checking along the diagonal for a bishop to see if a piece is in the way
           if (Math.abs(startX - landingX) == Math.abs(startY - landingY)) {
             for(int i=0; i < distance; i++){
@@ -313,6 +313,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           }
         }
         else if(pieceName.contains("Rook")){
+          Boolean inTheWay =false;
           if(((landingX < 0) || (landingX > 7)) ||((landingY < 0)||(landingY > 7))){
             
             validMove = false;
@@ -526,6 +527,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           }
           //white pawn
           else if(pieceName.equals("WhitePawn")){
+            Boolean inTheWay =false;
             if(startY == 1){//first move
             if(((yMovement==1)||(yMovement == 2))&&(startY < landingY)&&(xMovement == 0))
             {
