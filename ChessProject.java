@@ -227,6 +227,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 			If a Pawn makes it to the top of the other side, the Pawn can turn into any other piece, for
 			demonstration purposes the Pawn here turns into a Queen.
 		*/
+      try{
 
         if(pieceName.contains("King")){
           /*
@@ -972,6 +973,9 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           }
         }
       }
+      }catch(Exception w){//This method stops pieces from falling off of the board
+        validMove = false;
+      }
       //Code for pawn promotion
     	if(!validMove){
     		int location=0;
@@ -1032,8 +1036,8 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     	   		chessPiece.setVisible(true);
     		  }
         }
-      }
-
+    }
+    
         public void mouseClicked(MouseEvent e) {
 
         }
