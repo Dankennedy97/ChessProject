@@ -136,6 +136,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
   		JLabel awaitingPiece = (JLabel)c1;
   		String tmp1 = awaitingPiece.getIcon().toString();
   		if(((tmp1.contains("Black")))){
+          if(((tmp1.contains("BlackKing")))){
+            JOptionPane.showMessageDialog(null, "White Wins");
+            System.exit(0);
+          }
   			oponent = true;
   		}
   		else{
@@ -145,6 +149,36 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
   	}
 
     private Boolean checkBlackOponent(int newX, int newY){
+      Boolean oponent;
+      Component c1 = chessBoard.findComponentAt(newX, newY);
+      JLabel awaitingPiece = (JLabel)c1;
+      String tmp1 = awaitingPiece.getIcon().toString();
+      if(((tmp1.contains("White")))){
+        if(((tmp1.contains("WhiteKing")))){
+          JOptionPane.showMessageDialog(null, "Black Wins");
+          System.exit(0);
+        }
+        oponent = true;
+      }
+      else{
+        oponent = false;
+      }
+      return oponent;
+    }
+    private Boolean checkWhiteKing(int newX, int newY){
+      Boolean oponent;
+      Component c1 = chessBoard.findComponentAt(newX, newY);
+      JLabel awaitingPiece = (JLabel)c1;
+      String tmp1 = awaitingPiece.getIcon().toString();
+      if(((tmp1.contains("White")))){
+        oponent = true;
+      }
+      else{
+        oponent = false;
+      }
+      return oponent;
+    }
+    private Boolean checkBlackKing(int newX, int newY){
       Boolean oponent;
       Component c1 = chessBoard.findComponentAt(newX, newY);
       JLabel awaitingPiece = (JLabel)c1;
