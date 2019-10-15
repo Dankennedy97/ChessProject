@@ -301,9 +301,9 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             (piecePresent(e.getX()+75, e.getY()-75)&&(checkWhiteKing(e.getX()+75, e.getY()-75)))||
             (piecePresent(e.getX()-75, e.getY()-75)&&(checkWhiteKing(e.getX()-75, e.getY()-75)))||
             (piecePresent(e.getX()-75, e.getY())&&(checkWhiteKing(e.getX()-75, e.getY())))||
-            (piecePresent(e.getX()+75, e.getY())&&(checkBlackKing(e.getX()+75, e.getY())))||
-            (piecePresent(e.getX(), e.getY()-75)&&(checkBlackKing(e.getX(), e.getY()-75)))||
-            (piecePresent(e.getX(), e.getY()+75)&&(checkBlackKing(e.getX(), e.getY()+75))))
+            (piecePresent(e.getX()+75, e.getY())&&(checkWhiteKing(e.getX()+75, e.getY())))||
+            (piecePresent(e.getX(), e.getY()-75)&&(checkWhiteKing(e.getX(), e.getY()-75)))||
+            (piecePresent(e.getX(), e.getY()+75)&&(checkWhiteKing(e.getX(), e.getY()+75))))
             {
               validMove = false;
             }
