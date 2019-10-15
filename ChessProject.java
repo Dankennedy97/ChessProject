@@ -287,18 +287,27 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
           (startX - landingX == 1)&&(startY -landingY == -1)||
           (startX - landingX == -1)&&(startY - landingY == 1))
           {
-            //to make sure the king cannot move into check
+            //to make sure the king cannot move into check, doesnt work, also wont let king move along the borders of the map
             if((piecePresent(e.getX()+75, e.getY()+75)&&(checkBlackKing(e.getX()+75, e.getY()+75)))||
             (piecePresent(e.getX()-75, e.getY()+75)&&(checkBlackKing(e.getX()-75, e.getY()+75)))||
             (piecePresent(e.getX()+75, e.getY()-75)&&(checkBlackKing(e.getX()+75, e.getY()-75)))||
             (piecePresent(e.getX()-75, e.getY()-75)&&(checkBlackKing(e.getX()-75, e.getY()-75)))||
+            (piecePresent(e.getX()-75, e.getY())&&(checkBlackKing(e.getX()-75, e.getY())))||
+            (piecePresent(e.getX()+75, e.getY())&&(checkBlackKing(e.getX()+75, e.getY())))||
+            (piecePresent(e.getX(), e.getY()-75)&&(checkBlackKing(e.getX(), e.getY()-75)))||
+            (piecePresent(e.getX(), e.getY()+75)&&(checkBlackKing(e.getX(), e.getY()+75)))||
             (piecePresent(e.getX()+75, e.getY()+75)&&(checkWhiteKing(e.getX()+75, e.getY()+75)))||
             (piecePresent(e.getX()-75, e.getY()+75)&&(checkWhiteKing(e.getX()-75, e.getY()+75)))||
             (piecePresent(e.getX()+75, e.getY()-75)&&(checkWhiteKing(e.getX()+75, e.getY()-75)))||
-            (piecePresent(e.getX()-75, e.getY()-75)&&(checkWhiteKing(e.getX()-75, e.getY()-75))))
+            (piecePresent(e.getX()-75, e.getY()-75)&&(checkWhiteKing(e.getX()-75, e.getY()-75)))||
+            (piecePresent(e.getX()-75, e.getY())&&(checkWhiteKing(e.getX()-75, e.getY())))||
+            (piecePresent(e.getX()+75, e.getY())&&(checkBlackKing(e.getX()+75, e.getY())))||
+            (piecePresent(e.getX(), e.getY()-75)&&(checkBlackKing(e.getX(), e.getY()-75)))||
+            (piecePresent(e.getX(), e.getY()+75)&&(checkBlackKing(e.getX(), e.getY()+75))))
             {
               validMove = false;
             }
+
           // Diagonal Movement for King
             if (Math.abs(startX - landingX) == Math.abs(startY - landingY)) {
               Boolean inTheWay = false;
