@@ -278,15 +278,27 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
            }
           */
           //to ensure the king can only move one space
-          if(((startY - landingY == 1)&&(startX - landingX == 0))||//allows king to move forward, based on orientation
-          (startY - landingY == -1)&&(startX - landingX == 0)||//allows backwards movement, based on orientation
-          (startY - landingY == 0)&&(startX - landingX == 1)||//allows left movement, based on orientation
-          (startY - landingY == 0)&&(startX - landingX == -1)||//allows right movement, based on orientation
-          (startX - landingX == -1)&&(startY - landingY == -1)||//allows diagonal movement, based on orientation
-          (startX - landingX == 1)&&(startY - landingY == 1)||// allows diagonal movement, based on orientation
-          (startX - landingX == 1)&&(startY -landingY == -1)||// allows diagonal movement, based on orientation
-          (startX - landingX == -1)&&(startY - landingY == 1))// allows diagonal movement, based on orientation
+          if(((startY - landingY == 1)&&(startX - landingX == 0))||
+          (startY - landingY == -1)&&(startX - landingX == 0)||
+          (startY - landingY == 0)&&(startX - landingX == 1)||
+          (startY - landingY == 0)&&(startX - landingX == -1)||
+          (startX - landingX == -1)&&(startY - landingY == -1)||
+          (startX - landingX == 1)&&(startY - landingY == 1)||
+          (startX - landingX == 1)&&(startY -landingY == -1)||
+          (startX - landingX == -1)&&(startY - landingY == 1))
           {
+            //to make sure the king cannot move into check
+            if((piecePresent(e.getX()+75, e.getY()+75)&&(checkBlackKing(e.getX()+75, e.getY()+75)))||
+            (piecePresent(e.getX()-75, e.getY()+75)&&(checkBlackKing(e.getX()-75, e.getY()+75)))||
+            (piecePresent(e.getX()+75, e.getY()-75)&&(checkBlackKing(e.getX()+75, e.getY()-75)))||
+            (piecePresent(e.getX()-75, e.getY()-75)&&(checkBlackKing(e.getX()-75, e.getY()-75)))||
+            (piecePresent(e.getX()+75, e.getY()+75)&&(checkWhiteKing(e.getX()+75, e.getY()+75)))||
+            (piecePresent(e.getX()-75, e.getY()+75)&&(checkWhiteKing(e.getX()-75, e.getY()+75)))||
+            (piecePresent(e.getX()+75, e.getY()-75)&&(checkWhiteKing(e.getX()+75, e.getY()-75)))||
+            (piecePresent(e.getX()-75, e.getY()-75)&&(checkWhiteKing(e.getX()-75, e.getY()-75))))
+            {
+              validMove = false;
+            }
           // Diagonal Movement for King
             if (Math.abs(startX - landingX) == Math.abs(startY - landingY)) {
               Boolean inTheWay = false;
