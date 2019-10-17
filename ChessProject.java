@@ -278,35 +278,11 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
            }
           */
           //to ensure the king can only move one space
-          if(((startY - landingY == 1)&&(startX - landingX == 0))||
-          (startY - landingY == -1)&&(startX - landingX == 0)||
-          (startY - landingY == 0)&&(startX - landingX == 1)||
-          (startY - landingY == 0)&&(startX - landingX == -1)||
-          (startX - landingX == -1)&&(startY - landingY == -1)||
-          (startX - landingX == 1)&&(startY - landingY == 1)||
-          (startX - landingX == 1)&&(startY -landingY == -1)||
-          (startX - landingX == -1)&&(startY - landingY == 1))
+          if(xMovement ==1 || yMovement == 1)
           {
-            //to make sure the king cannot move into check, doesnt work, also wont let king move along the borders of the map
-            if((piecePresent(e.getX()+75, e.getY()+75)&&(checkBlackKing(e.getX()+75, e.getY()+75)))||
-            (piecePresent(e.getX()-75, e.getY()+75)&&(checkBlackKing(e.getX()-75, e.getY()+75)))||
-            (piecePresent(e.getX()+75, e.getY()-75)&&(checkBlackKing(e.getX()+75, e.getY()-75)))||
-            (piecePresent(e.getX()-75, e.getY()-75)&&(checkBlackKing(e.getX()-75, e.getY()-75)))||
-            (piecePresent(e.getX()-75, e.getY())&&(checkBlackKing(e.getX()-75, e.getY())))||
-            (piecePresent(e.getX()+75, e.getY())&&(checkBlackKing(e.getX()+75, e.getY())))||
-            (piecePresent(e.getX(), e.getY()-75)&&(checkBlackKing(e.getX(), e.getY()-75)))||
-            (piecePresent(e.getX(), e.getY()+75)&&(checkBlackKing(e.getX(), e.getY()+75)))||
-            (piecePresent(e.getX()+75, e.getY()+75)&&(checkWhiteKing(e.getX()+75, e.getY()+75)))||
-            (piecePresent(e.getX()-75, e.getY()+75)&&(checkWhiteKing(e.getX()-75, e.getY()+75)))||
-            (piecePresent(e.getX()+75, e.getY()-75)&&(checkWhiteKing(e.getX()+75, e.getY()-75)))||
-            (piecePresent(e.getX()-75, e.getY()-75)&&(checkWhiteKing(e.getX()-75, e.getY()-75)))||
-            (piecePresent(e.getX()-75, e.getY())&&(checkWhiteKing(e.getX()-75, e.getY())))||
-            (piecePresent(e.getX()+75, e.getY())&&(checkWhiteKing(e.getX()+75, e.getY())))||
-            (piecePresent(e.getX(), e.getY()-75)&&(checkWhiteKing(e.getX(), e.getY()-75)))||
-            (piecePresent(e.getX(), e.getY()+75)&&(checkWhiteKing(e.getX(), e.getY()+75))))
-            {
-              validMove = false;
-            }
+            validMove = true;
+          
+            
 
           // Diagonal Movement for King
             if (Math.abs(startX - landingX) == Math.abs(startY - landingY)) {
@@ -315,9 +291,6 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
               if (((landingX < 0) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))) {
                 validMove = false;
               }
-              if((yMovement == 1)&&(xMovement == 1)){
-                validMove = true;
-              } 
               else {
                 validMove = true;
                 if (Math.abs(startX - landingX) == Math.abs(startY - landingY)) {
@@ -380,9 +353,6 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
               // makes sure the piece is being put back onto the chessboard
               if (((landingX < 0) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))) {
                 validMove = false;
-              }
-              if((yMovement == 1)&&(xMovement == 1)){
-                validMove = true;
               }
               else {
                 // To determine if the rook is moving horizontally or vertically
