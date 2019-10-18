@@ -261,7 +261,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 			If a Pawn makes it to the top of the other side, the Pawn can turn into any other piece, for
 			demonstration purposes the Pawn here turns into a Queen.
 		*/
-      try{
+    try{
 
         if(pieceName.contains("King")){
           /*
@@ -319,10 +319,11 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                       }
                     }
                   }
-
+                  //if there is a piece in the way, valid move is false
                   if (inTheWay) {
                     validMove = false;
-                  } else {
+                  } 
+                  else {
                     if (piecePresent(e.getX(), (e.getY()))) {
                       if (pieceName.contains("White")) {
                         if (checkWhiteOponent(e.getX(), e.getY())) {
@@ -716,7 +717,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             validMove = false;
           }
           else{
-            //To determine if the rook is moving horizontally or vertically
+            //To determine if the rook is moving horizontally or vertically, also checks if there is a piece in the way
             if(((Math.abs(startX-landingX)!=0)&&(Math.abs(startY-landingY)==0))|| ((Math.abs(startX-landingX)==0)&&(Math.abs(landingY-startY)!=0)))
             {             
               if(Math.abs(startX-landingX)!=0){
